@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Content Slots API
+components:
+  securitySchemes:
+    ShopperToken:
+      type: http
+      scheme: bearer
+      flows:
+        authorizationCode:
+          authorizationUrl: https://shortcode.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/my-org-id/oauth2/authorize
+          tokenUrl: https://shortcode.api.commercecloud.salesforce.com/shopper/auth/v1/organizations/my-org-id/oauth2/token
+          scopes:
+            c_contentSlots_r: Read content slots
+paths:
+  /global/{slotId}:
+    get:
+      summary: "Get a global content slot by ID"
+      operationId: getGlobalContentSlot
+      parameters:
+        - in: path
+          name: slotId
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: siteId
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: locale
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        200:
+          description: OK
+  /global/{slotId}/html:
+    get:
+      summary: "Get a global content slot by ID; returning the raw content with HTML content type"
+      operationId: getGlobalContentSlotHTML
+      parameters:
+        - in: path
+          name: slotId
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: siteId
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: locale
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        200:
+          description: OK
+  /category/{categoryId}/{slotId}:
+    get:
+      summary: "Get a global content slot by ID"
+      operationId: getCategoryContentSlot
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: slotId
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: siteId
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: locale
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        200:
+          description: OK
+  /category/{categoryId}/{slotId}/html:
+    get:
+      summary: "Get a global content slot by ID; returning the raw content with HTML content type"
+      operationId: getCategoryContentSlotHTML
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: slotId
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: siteId
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: locale
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        200:
+          description: OK
+security:
+  - ShopperToken: ["c_contentSlots_r"]

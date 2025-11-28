@@ -1,0 +1,18 @@
+{
+  "name": "Carousel",
+  "description": "Example headless component - carousel",
+  "group": "Headless",
+  "attribute_definition_groups": [
+  ],
+  "region_definitions": [{
+    "id": "slides",
+    "name": "slides",
+    "component_type_inclusions": [
+      {"type_id": "headless.banner"},
+      {"type_id": "headless.contentCard"},
+      {"type_id": "headless.rawJSX"},
+      {"type_id": "headless.image"},
+      {"type_id": "headless.productTile"}
+    ]
+  }]
+}

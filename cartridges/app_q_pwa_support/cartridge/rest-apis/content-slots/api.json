@@ -1,0 +1,8 @@
+{
+  "endpoints": [
+    {"endpoint": "getGlobalContentSlot", "schema": "schema.yaml", "implementation": "contentSlots"},
+    {"endpoint": "getGlobalContentSlotHTML", "schema": "schema.yaml", "implementation": "contentSlots"},
+    {"endpoint": "getCategoryContentSlot", "schema": "schema.yaml", "implementation": "contentSlots"},
+    {"endpoint": "getCategoryContentSlotHTML", "schema": "schema.yaml", "implementation": "contentSlots"}
+  ]
+}
