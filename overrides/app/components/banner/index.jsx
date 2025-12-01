@@ -22,7 +22,7 @@ export default function Banner({
 
     return (
         <Box width="100%">
-            <Box __css={styles.banner}>
+            <Box __css={styles.banner} position="relative">
                 <Box
                     __css={styles.background}
                     style={{
