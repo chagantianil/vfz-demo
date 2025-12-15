@@ -18,6 +18,7 @@ import PDVideoBanner from './headless/videoBanner'
 import VideoContentCard from './headless/videoContentCard'
 import PDAccordion from './headless/accordion'
 import PDAccordionItem from './headless/accordionItem'
+import PDTooltip from './headless/tooltip'
 
 // component registry
 // these are the react implemented types of the PD components
@@ -39,7 +40,8 @@ export const COMPONENTS = {
     'headless.videoBanner': PDVideoBanner,
     'headless.videoContentCard': VideoContentCard,
     'headless.accordion': PDAccordion,
-    'headless.accordionItem': PDAccordionItem
+    'headless.accordionItem': PDAccordionItem,
+    'headless.tooltip': PDTooltip
 }
 
 /**

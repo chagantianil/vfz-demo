@@ -21,7 +21,8 @@
           {"type_id": "headless.productTile"},
           {"type_id": "headless.videoBanner"},
           {"type_id": "headless.videoContentCard"},
-          {"type_id": "headless.accordion"}
+          {"type_id": "headless.accordion"},
+          {"type_id": "headless.tooltip"}
         ]
       }
     ]

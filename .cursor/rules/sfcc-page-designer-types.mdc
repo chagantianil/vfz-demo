@@ -1,0 +1,280 @@
+# SFCC Page Designer Component Attribute Types Reference
+
+This document lists all valid attribute types for SFCC Page Designer component JSON definitions.
+
+## Standard Attribute Types
+
+### 1. `string`
+- **Description**: Single-line text input
+- **Usage**: For short text fields like labels, headings, button text
+- **Example**:
+```json
+{
+  "id": "label",
+  "name": "Label",
+  "type": "string",
+  "required": true
+}
+```
+
+### 2. `text`
+- **Description**: Multi-line text input (plain text)
+- **Usage**: For longer text content without HTML
+- **Example**:
+```json
+{
+  "id": "description",
+  "name": "Description",
+  "type": "text",
+  "required": false
+}
+```
+
+### 3. `markup`
+- **Description**: HTML/markup content editor
+- **Usage**: For content that supports HTML formatting
+- **Example**:
+```json
+{
+  "id": "content",
+  "name": "Content",
+  "type": "markup",
+  "required": true
+}
+```
+
+### 4. `enum`
+- **Description**: Dropdown selection from predefined values
+- **Usage**: For selecting from a list of options
+- **Required Fields**: `values` array
+- **Example**:
+```json
+{
+  "id": "placement",
+  "name": "Placement",
+  "type": "enum",
+  "default_value": "top",
+  "values": ["top", "bottom", "left", "right"],
+  "required": false
+}
+```
+
+### 5. `boolean`
+- **Description**: Checkbox (true/false)
+- **Usage**: For toggle/flag attributes
+- **Example**:
+```json
+{
+  "id": "hasArrow",
+  "name": "Show Arrow",
+  "type": "boolean",
+  "default_value": true,
+  "required": false
+}
+```
+
+### 6. `integer`
+- **Description**: Whole number input
+- **Usage**: For numeric values like delays, counts, columns
+- **Example**:
+```json
+{
+  "id": "openDelay",
+  "name": "Open Delay (ms)",
+  "type": "integer",
+  "default_value": 0,
+  "required": false
+}
+```
+
+### 7. `image`
+- **Description**: Image asset picker
+- **Usage**: For selecting images from the content library
+- **Example**:
+```json
+{
+  "id": "image",
+  "name": "Background Image",
+  "type": "image",
+  "required": true
+}
+```
+
+### 8. `url`
+- **Description**: URL/link input
+- **Usage**: For links and URLs
+- **Example**:
+```json
+{
+  "id": "buttonLink",
+  "name": "Button Link",
+  "type": "url",
+  "required": false
+}
+```
+
+### 9. `file`
+- **Description**: File upload picker
+- **Usage**: For uploading files (e.g., videos, documents)
+- **Example**:
+```json
+{
+  "id": "video",
+  "name": "Background Video",
+  "type": "file",
+  "required": true
+}
+```
+
+### 10. `category`
+- **Description**: Category selector
+- **Usage**: For selecting product categories
+- **Example**:
+```json
+{
+  "id": "category",
+  "name": "Category",
+  "type": "category",
+  "required": true
+}
+```
+
+### 11. `product`
+- **Description**: Product selector
+- **Usage**: For selecting products
+- **Example**:
+```json
+{
+  "id": "product",
+  "name": "Product",
+  "type": "product",
+  "required": true
+}
+```
+
+## Custom Attribute Types
+
+### 12. `custom`
+- **Description**: Custom editor with specific editor definition
+- **Usage**: For advanced/custom editors
+- **Required Fields**: `editor_definition` object
+- **Common Editor Types**:
+  - `styles.styleEditor` - Style configuration editor
+  - `codeeditor.codeeditor` - Code editor (with language configuration)
+  - `assets.einstein` - Einstein recommender selector
+
+#### Style Editor Example:
+```json
+{
+  "id": "__containerStyles",
+  "name": "Container Style Config",
+  "type": "custom",
+  "editor_definition": {
+    "type": "styles.styleEditor"
+  },
+  "required": false
+}
+```
+
+#### Code Editor Example:
+```json
+{
+  "id": "themeOverrides",
+  "name": "Chakra Theme Overrides",
+  "type": "custom",
+  "editor_definition": {
+    "type": "codeeditor.codeeditor",
+    "configuration": {
+      "language": "javascript-jsx",
+      "validateJavascript": true
+    }
+  },
+  "required": false
+}
+```
+
+#### Einstein Recommender Example:
+```json
+{
+  "id": "recommender",
+  "name": "Recommender",
+  "type": "custom",
+  "editor_definition": {
+    "type": "assets.einstein"
+  },
+  "required": true
+}
+```
+
+## Type Selection Guidelines
+
+- **Use `string`** for short text (labels, headings, button text)
+- **Use `text`** for multi-line plain text (descriptions, content without HTML)
+- **Use `markup`** for HTML content (rich text with formatting)
+- **Use `enum`** for dropdown selections (with `values` array)
+- **Use `boolean`** for true/false toggles
+- **Use `integer`** for whole numbers (NOT `number`)
+- **Use `image`** for image selection
+- **Use `url`** for links/URLs
+- **Use `file`** for file uploads
+- **Use `category`** for category selection
+- **Use `product`** for product selection
+- **Use `custom`** for advanced editors (styles, code, Einstein, etc.)
+
+## Common Patterns
+
+### Standard Component Structure:
+```json
+{
+  "name": "Component Name",
+  "description": "Component description",
+  "group": "Headless",
+  "attribute_definition_groups": [
+    {
+      "id": "content",
+      "name": "Content",
+      "attribute_definitions": [
+        // Content attributes here
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced Overrides",
+      "attribute_definitions": [
+        {
+          "id": "__containerStyles",
+          "name": "Container Style Config",
+          "type": "custom",
+          "editor_definition": {
+            "type": "styles.styleEditor"
+          },
+          "required": false
+        },
+        {
+          "id": "themeOverrides",
+          "name": "Chakra Theme Overrides",
+          "type": "custom",
+          "editor_definition": {
+            "type": "codeeditor.codeeditor",
+            "configuration": {
+              "language": "javascript-jsx",
+              "validateJavascript": true
+            }
+          },
+          "required": false
+        }
+      ]
+    }
+  ],
+  "region_definitions": []
+}
+```
+
+## Notes
+
+- **`number` is NOT a valid type** - use `integer` instead
+- **`enum` IS a valid type** - use it with `values` array for dropdowns
+- **`text` vs `markup`**: Use `text` for plain text, `markup` for HTML content
+- All types support `required` field (boolean)
+- Types that support `default_value`: `enum`, `boolean`, `integer`, `string`
+- Custom types require `editor_definition` object

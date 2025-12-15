@@ -50,6 +50,7 @@ import {
     AccordionButton,
     AccordionPanel,
     AccordionIcon,
+    Tooltip,
     Tabs,
     TabList,
     TabPanels,
@@ -359,6 +360,8 @@ export const ALLOWED_COMPONENTS = {
     AccordionButton,
     AccordionPanel,
     AccordionIcon,
+
+    Tooltip,
 
     Tabs,
     TabList,

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Box} from '@salesforce/retail-react-app/app/components/shared/ui'
-import {withLivePreview, withThemeOverrides} from './helpers'
 
 /**
  * Accordion Item component
@@ -29,5 +28,5 @@ PDAccordionItem.propTypes = {
     component: PropTypes.object
 }
 
-export default withLivePreview(withThemeOverrides(PDAccordionItem))
+export default PDAccordionItem
 

@@ -1,0 +1,114 @@
+{
+  "name": "Tooltip Component",
+  "description": "Tooltip component that displays additional information on hover",
+  "group": "Headless",
+  "attribute_definition_groups": [
+    {
+      "id": "content",
+      "name": "Content",
+      "attribute_definitions": [
+        {
+          "id": "label",
+          "name": "Tooltip Label",
+          "description": "The text to display in the tooltip",
+          "type": "string",
+          "required": true
+        },
+        {
+          "id": "content",
+          "name": "Tooltip Content",
+          "description": "The content that will have the tooltip (supports HTML)",
+          "type": "markup",
+          "required": true
+        },
+        {
+          "id": "placement",
+          "name": "Placement",
+          "description": "Position of the tooltip relative to the content",
+          "type": "enum",
+          "default_value": "top",
+          "values": [
+            "auto",
+            "auto-start",
+            "auto-end",
+            "top",
+            "top-start",
+            "top-end",
+            "bottom",
+            "bottom-start",
+            "bottom-end",
+            "right",
+            "right-start",
+            "right-end",
+            "left",
+            "left-start",
+            "left-end"
+          ],
+          "required": false
+        },
+        {
+          "id": "hasArrow",
+          "name": "Show Arrow",
+          "description": "Display an arrow pointing to the content",
+          "type": "boolean",
+          "default_value": true,
+          "required": false
+        },
+        {
+          "id": "openDelay",
+          "name": "Open Delay (ms)",
+          "description": "Delay in milliseconds before showing the tooltip",
+          "type": "integer",
+          "default_value": 0,
+          "required": false
+        },
+        {
+          "id": "closeDelay",
+          "name": "Close Delay (ms)",
+          "description": "Delay in milliseconds before hiding the tooltip",
+          "type": "integer",
+          "default_value": 0,
+          "required": false
+        },
+        {
+          "id": "isDisabled",
+          "name": "Disabled",
+          "description": "Disable the tooltip",
+          "type": "boolean",
+          "default_value": false,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced Overrides",
+      "attribute_definitions": [
+        {
+          "id": "__containerStyles",
+          "name": "Container Style Config",
+          "type": "custom",
+          "editor_definition": {
+            "type": "styles.styleEditor"
+          },
+          "required": false
+        },
+        {
+          "id": "themeOverrides",
+          "name": "Chakra Theme Overrides",
+          "type": "custom",
+          "editor_definition": {
+            "type": "codeeditor.codeeditor",
+            "configuration": {
+              "language": "javascript-jsx",
+              "validateJavascript": true
+            }
+          },
+          "required": false
+        }
+      ]
+    }
+  ],
+  "region_definitions": []
+}
+

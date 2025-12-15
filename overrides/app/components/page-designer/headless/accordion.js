@@ -10,7 +10,6 @@ import {
     Image,
     Text
 } from '@salesforce/retail-react-app/app/components/shared/ui'
-import {withLivePreview, withThemeOverrides} from './helpers'
 
 /**
  * Accordion component that renders accordion items from regions
@@ -80,5 +79,5 @@ PDAccordion.propTypes = {
     component: PropTypes.object
 }
 
-export default withLivePreview(withThemeOverrides(PDAccordion))
+export default PDAccordion
 
