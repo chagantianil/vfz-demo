@@ -6,12 +6,12 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import {ChakraProvider} from '@salesforce/retail-react-app/app/components/shared/ui'
+import {ChakraProvider, extendTheme} from '@salesforce/retail-react-app/app/components/shared/ui'
 
 // Removes focus for non-keyboard interactions for the whole application
 import 'focus-visible/dist/focus-visible'
 
-import theme from '@salesforce/retail-react-app/app/theme'
+import baseTheme from '@salesforce/retail-react-app/app/theme'
 import {MultiSiteProvider, StoreLocatorProvider} from '@salesforce/retail-react-app/app/contexts'
 import {
     resolveSiteFromUrl,
@@ -42,6 +42,19 @@ import {
     STORE_LOCATOR_DEFAULT_PAGE_SIZE,
     STORE_LOCATOR_SUPPORTED_COUNTRIES
 } from '@salesforce/retail-react-app/app/constants'
+
+// Extend theme with Popover popper styles
+const theme = extendTheme(baseTheme, {
+    components: {
+        Popover: {
+            baseStyle: {
+                popper: {
+                    minWidth: 'auto !important'
+                }
+            }
+        }
+    }
+})
 
 const sfdcUserAgent = generateSfdcUserAgent()
 

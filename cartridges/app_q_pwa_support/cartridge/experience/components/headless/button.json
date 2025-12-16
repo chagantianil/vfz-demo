@@ -1,0 +1,153 @@
+{
+  "name": "Button",
+  "description": "Button component for triggering actions",
+  "group": "Headless",
+  "attribute_definition_groups": [
+    {
+      "id": "content",
+      "name": "Content",
+      "attribute_definitions": [
+        {
+          "id": "label",
+          "name": "Button Label",
+          "description": "The text displayed on the button",
+          "type": "string",
+          "required": true
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "description": "Size of the button",
+          "type": "enum",
+          "default_value": "md",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "required": false
+        },
+        {
+          "id": "variant",
+          "name": "Variant",
+          "description": "Visual style variant of the button",
+          "type": "enum",
+          "default_value": "solid",
+          "values": [
+            "solid",
+            "outline",
+            "ghost",
+            "link"
+          ],
+          "required": false
+        },
+        {
+          "id": "colorScheme",
+          "name": "Color Scheme",
+          "description": "Color scheme of the button",
+          "type": "enum",
+          "default_value": "blue",
+          "values": [
+            "gray",
+            "red",
+            "orange",
+            "yellow",
+            "green",
+            "teal",
+            "blue",
+            "cyan",
+            "purple",
+            "pink"
+          ],
+          "required": false
+        },
+        {
+          "id": "isDisabled",
+          "name": "Disabled",
+          "description": "Disable the button",
+          "type": "boolean",
+          "default_value": false,
+          "required": false
+        },
+        {
+          "id": "isLoading",
+          "name": "Loading",
+          "description": "Show loading spinner on the button",
+          "type": "boolean",
+          "default_value": false,
+          "required": false
+        },
+        {
+          "id": "loadingText",
+          "name": "Loading Text",
+          "description": "Text to show while loading",
+          "type": "string",
+          "required": false
+        },
+        {
+          "id": "href",
+          "name": "Link URL",
+          "description": "If provided, button will render as a link",
+          "type": "url",
+          "required": false
+        },
+        {
+          "id": "target",
+          "name": "Link Target",
+          "description": "Target for the link (e.g., _blank for new tab)",
+          "type": "enum",
+          "default_value": "_self",
+          "values": [
+            "_self",
+            "_blank",
+            "_parent",
+            "_top"
+          ],
+          "required": false
+        },
+        {
+          "id": "drawerAction",
+          "name": "Drawer Action",
+          "description": "Action to perform when button is inside a drawer (open/close drawer)",
+          "type": "enum",
+          "values": [
+            "open",
+            "close"
+          ],
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced Overrides",
+      "attribute_definitions": [
+        {
+          "id": "__containerStyles",
+          "name": "Container Style Config",
+          "type": "custom",
+          "editor_definition": {
+            "type": "styles.styleEditor"
+          },
+          "required": false
+        },
+        {
+          "id": "themeOverrides",
+          "name": "Chakra Theme Overrides",
+          "type": "custom",
+          "editor_definition": {
+            "type": "codeeditor.codeeditor",
+            "configuration": {
+              "language": "javascript-jsx",
+              "validateJavascript": true
+            }
+          },
+          "required": false
+        }
+      ]
+    }
+  ],
+  "region_definitions": []
+}
+

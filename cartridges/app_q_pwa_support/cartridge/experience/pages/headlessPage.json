@@ -22,7 +22,9 @@
           {"type_id": "headless.videoBanner"},
           {"type_id": "headless.videoContentCard"},
           {"type_id": "headless.accordion"},
-          {"type_id": "headless.tooltip"}
+          {"type_id": "headless.tooltip"},
+          {"type_id": "headless.drawer"},
+          {"type_id": "headless.button"}
         ]
       }
     ]

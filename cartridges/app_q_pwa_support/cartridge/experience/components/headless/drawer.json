@@ -1,0 +1,184 @@
+{
+  "name": "Drawer",
+  "description": "Drawer component that displays content in a slide-out panel",
+  "group": "Headless",
+  "attribute_definition_groups": [
+    {
+      "id": "content",
+      "name": "Content",
+      "attribute_definitions": [
+        {
+          "id": "placement",
+          "name": "Placement",
+          "description": "Position of the drawer on the screen",
+          "type": "enum",
+          "default_value": "right",
+          "values": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ],
+          "required": false
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "description": "Size of the drawer",
+          "type": "enum",
+          "default_value": "md",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ],
+          "required": false
+        },
+        {
+          "id": "defaultIsOpen",
+          "name": "Default Open",
+          "description": "If true, the drawer will be open by default",
+          "type": "boolean",
+          "default_value": false,
+          "required": false
+        },
+        {
+          "id": "closeOnEsc",
+          "name": "Close on ESC",
+          "description": "Close the drawer when ESC key is pressed",
+          "type": "boolean",
+          "default_value": true,
+          "required": false
+        },
+        {
+          "id": "closeOnOverlayClick",
+          "name": "Close on Overlay Click",
+          "description": "Close the drawer when clicking outside of it",
+          "type": "boolean",
+          "default_value": true,
+          "required": false
+        },
+        {
+          "id": "blockScrollOnMount",
+          "name": "Block Scroll on Mount",
+          "description": "Prevent scrolling of the body when drawer is open",
+          "type": "boolean",
+          "default_value": true,
+          "required": false
+        },
+        {
+          "id": "trapFocus",
+          "name": "Trap Focus",
+          "description": "Trap focus inside the drawer when open",
+          "type": "boolean",
+          "default_value": true,
+          "required": false
+        },
+        {
+          "id": "showCloseButton",
+          "name": "Show Close Button",
+          "description": "Display the close button in the drawer header",
+          "type": "boolean",
+          "default_value": true,
+          "required": false
+        },
+        {
+          "id": "motionPreset",
+          "name": "Animation Preset",
+          "description": "Animation style for drawer opening/closing. 'none' for instant (no delay), 'slide' or 'scale' for animation",
+          "type": "enum",
+          "default_value": "none",
+          "values": [
+            "none",
+            "slide",
+            "scale"
+          ],
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced Overrides",
+      "attribute_definitions": [
+        {
+          "id": "__containerStyles",
+          "name": "Container Style Config",
+          "type": "custom",
+          "editor_definition": {
+            "type": "styles.styleEditor"
+          },
+          "required": false
+        },
+        {
+          "id": "themeOverrides",
+          "name": "Chakra Theme Overrides",
+          "type": "custom",
+          "editor_definition": {
+            "type": "codeeditor.codeeditor",
+            "configuration": {
+              "language": "javascript-jsx",
+              "validateJavascript": true
+            }
+          },
+          "required": false
+        }
+      ]
+    }
+  ],
+  "region_definitions": [
+    {
+      "id": "trigger",
+      "name": "Trigger",
+      "max_components": 10,
+      "component_type_inclusions": [
+        {"type_id": "headless.button"},
+        {"type_id": "headless.image"},
+        {"type_id": "headless.contentCard"},
+        {"type_id": "headless.rawJSX"},
+        {"type_id": "headless.banner"}
+      ]
+    },
+    {
+      "id": "header",
+      "name": "Header",
+      "max_components": 5,
+      "component_type_inclusions": [
+        {"type_id": "headless.button"},
+        {"type_id": "headless.sectionHeader"},
+        {"type_id": "headless.rawJSX"},
+        {"type_id": "headless.image"}
+      ]
+    },
+    {
+      "id": "body",
+      "name": "Body",
+      "max_components": 20,
+      "component_type_inclusions": [
+        {"type_id": "headless.button"},
+        {"type_id": "headless.rawJSX"},
+        {"type_id": "headless.contentCard"},
+        {"type_id": "headless.image"},
+        {"type_id": "headless.grid"},
+        {"type_id": "headless.3column"},
+        {"type_id": "headless.accordion"},
+        {"type_id": "headless.tooltip"}
+      ]
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "max_components": 10,
+      "component_type_inclusions": [
+        {"type_id": "headless.button"},
+        {"type_id": "headless.rawJSX"},
+        {"type_id": "headless.contentCard"},
+        {"type_id": "headless.image"}
+      ]
+    }
+  ]
+}
+
