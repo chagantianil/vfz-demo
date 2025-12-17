@@ -418,6 +418,165 @@ const {handler} = runtime.createHandler(options, (app) => {
     app.get('/robots.txt', runtime.serveStaticFile('static/robots.txt'))
     app.get('/favicon.ico', runtime.serveStaticFile('static/ico/favicon.ico'))
 
+    // Sample API route that returns JSON
+    app.get('/api/sample', (req, res) => {
+        res.setHeader('Content-Type', 'application/json')
+        res.json({
+            message: 'Hello from the sample API route!',
+            timestamp: new Date().toISOString(),
+            data: {
+                status: 'success',
+                version: '1.0.0',
+                items: [
+                    {id: 1, name: 'Item One', description: 'This is the first item'},
+                    {id: 2, name: 'Item Two', description: 'This is the second item'},
+                    {id: 3, name: 'Item Three', description: 'This is the third item'}
+                ]
+            }
+        })
+    })
+
+    // Test endpoint to check environment variables (for testing purposes)
+    app.get('/api/test-env', (req, res) => {
+        const slasSecret = process.env.PWA_KIT_SLAS_CLIENT_SECRET
+        const googleMapsKey = process.env.GOOGLE_MAPS_API_KEY
+
+        console.log('=== Environment Variables Test ===')
+        console.log('PWA_KIT_SLAS_CLIENT_SECRET:', {
+            isSet: !!slasSecret,
+            length: slasSecret?.length || 0,
+            preview: slasSecret
+                ? `${slasSecret.substring(0, 10)}...${slasSecret.substring(slasSecret.length - 5)}`
+                : 'NOT SET',
+            fullValue: slasSecret || 'NOT SET'
+        })
+        console.log('GOOGLE_MAPS_API_KEY:', {
+            isSet: !!googleMapsKey,
+            length: googleMapsKey?.length || 0,
+            preview: googleMapsKey ? `${googleMapsKey.substring(0, 10)}...` : 'NOT SET'
+        })
+
+        res.setHeader('Content-Type', 'application/json')
+        res.json({
+            timestamp: new Date().toISOString(),
+            environmentVariables: {
+                PWA_KIT_SLAS_CLIENT_SECRET: {
+                    isSet: !!slasSecret,
+                    length: slasSecret?.length || 0,
+                    preview: slasSecret
+                        ? `${slasSecret.substring(0, 10)}...${slasSecret.substring(
+                              slasSecret.length - 5
+                          )}`
+                        : 'NOT SET',
+                    fullValue: slasSecret || 'NOT SET' // Full value for testing
+                },
+                GOOGLE_MAPS_API_KEY: {
+                    isSet: !!googleMapsKey,
+                    length: googleMapsKey?.length || 0,
+                    preview: googleMapsKey ? `${googleMapsKey.substring(0, 10)}...` : 'NOT SET'
+                }
+            },
+            allEnvKeys: Object.keys(process.env).filter(
+                (key) =>
+                    key.includes('PWA') ||
+                    key.includes('SLAS') ||
+                    key.includes('GOOGLE') ||
+                    key.includes('MAPS')
+            )
+        })
+    })
+
+    // Google Places Autocomplete API route
+    app.get('/api/places/autocomplete', async (req, res) => {
+        try {
+            console.log('Places autocomplete route hit:', req.query)
+            const {input} = req.query
+            const apiKey = process.env.GOOGLE_MAPS_API_KEY
+
+            console.log('Environment variable check:', {
+                hasApiKey: !!apiKey,
+                apiKeyLength: apiKey?.length || 0,
+                apiKeyPreview: apiKey ? `${apiKey.substring(0, 10)}...` : 'undefined'
+            })
+
+            if (!apiKey) {
+                console.error('GOOGLE_MAPS_API_KEY is not set in environment variables')
+                return res.status(500).json({
+                    error: 'Google Maps API key is not configured. Please set GOOGLE_MAPS_API_KEY in your environment variables.',
+                    debug: {
+                        envKeys: Object.keys(process.env).filter(
+                            (key) => key.includes('GOOGLE') || key.includes('MAPS')
+                        )
+                    }
+                })
+            }
+
+            if (!input || input.trim().length === 0) {
+                return res.status(400).json({
+                    error: 'Input parameter is required'
+                })
+            }
+
+            // Call Google Places API Autocomplete
+            const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
+                input
+            )}&key=${apiKey}&types=address`
+
+            console.log('Calling Google Places API...', {url: url.replace(apiKey, '***HIDDEN***')})
+
+            // Check if fetch is available
+            if (typeof fetch === 'undefined') {
+                throw new Error('fetch is not available. Node.js version might be too old.')
+            }
+
+            const response = await fetch(url)
+
+            if (!response.ok) {
+                const errorText = await response.text()
+                console.error('Google Places API error:', response.status, errorText)
+                return res.status(response.status).json({
+                    error: 'Google Places API request failed',
+                    status: response.status,
+                    details: errorText
+                })
+            }
+
+            const data = await response.json()
+            console.log('Google Places API response status:', data.status)
+
+            if (data.status === 'OK' || data.status === 'ZERO_RESULTS') {
+                // Format the predictions for easier use
+                const suggestions = data.predictions.map((prediction) => ({
+                    placeId: prediction.place_id,
+                    description: prediction.description,
+                    mainText: prediction.structured_formatting?.main_text || prediction.description,
+                    secondaryText: prediction.structured_formatting?.secondary_text || '',
+                    types: prediction.types
+                }))
+
+                res.setHeader('Content-Type', 'application/json')
+                res.json({
+                    status: 'success',
+                    suggestions,
+                    rawResponse: data
+                })
+            } else {
+                res.status(400).json({
+                    error: `Google Places API error: ${data.status}`,
+                    message: data.error_message || 'Unknown error'
+                })
+            }
+        } catch (error) {
+            console.error('Error fetching place suggestions:', error)
+            console.error('Error stack:', error.stack)
+            res.status(500).json({
+                error: 'Internal server error',
+                message: error.message,
+                stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+            })
+        }
+    })
+
     app.get('/worker.js(.map)?', runtime.serveServiceWorker)
     app.get('*', runtime.render)
 })
