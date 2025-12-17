@@ -70,7 +70,7 @@ const AddressSearch = ({
                 const response = await fetch(`${apiEndpoint}?input=${encodeURIComponent(inputValue)}`)
                 const data = await response.json()
 
-                if (data.status === 'success' && data.suggestions) {
+                if (data.status === 'success' && Array.isArray(data.suggestions)) {
                     setSuggestions(data.suggestions)
                     setShowSuggestions(true)
                 } else {

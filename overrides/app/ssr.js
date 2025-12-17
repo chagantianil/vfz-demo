@@ -436,56 +436,6 @@ const {handler} = runtime.createHandler(options, (app) => {
         })
     })
 
-    // Test endpoint to check environment variables (for testing purposes)
-    app.get('/api/test-env', (req, res) => {
-        const slasSecret = process.env.PWA_KIT_SLAS_CLIENT_SECRET
-        const googleMapsKey = process.env.GOOGLE_MAPS_API_KEY
-
-        console.log('=== Environment Variables Test ===')
-        console.log('PWA_KIT_SLAS_CLIENT_SECRET:', {
-            isSet: !!slasSecret,
-            length: slasSecret?.length || 0,
-            preview: slasSecret
-                ? `${slasSecret.substring(0, 10)}...${slasSecret.substring(slasSecret.length - 5)}`
-                : 'NOT SET',
-            fullValue: slasSecret || 'NOT SET'
-        })
-        console.log('GOOGLE_MAPS_API_KEY:', {
-            isSet: !!googleMapsKey,
-            length: googleMapsKey?.length || 0,
-            preview: googleMapsKey ? `${googleMapsKey.substring(0, 10)}...` : 'NOT SET'
-        })
-
-        res.setHeader('Content-Type', 'application/json')
-        res.json({
-            timestamp: new Date().toISOString(),
-            environmentVariables: {
-                PWA_KIT_SLAS_CLIENT_SECRET: {
-                    isSet: !!slasSecret,
-                    length: slasSecret?.length || 0,
-                    preview: slasSecret
-                        ? `${slasSecret.substring(0, 10)}...${slasSecret.substring(
-                              slasSecret.length - 5
-                          )}`
-                        : 'NOT SET',
-                    fullValue: slasSecret || 'NOT SET' // Full value for testing
-                },
-                GOOGLE_MAPS_API_KEY: {
-                    isSet: !!googleMapsKey,
-                    length: googleMapsKey?.length || 0,
-                    preview: googleMapsKey ? `${googleMapsKey.substring(0, 10)}...` : 'NOT SET'
-                }
-            },
-            allEnvKeys: Object.keys(process.env).filter(
-                (key) =>
-                    key.includes('PWA') ||
-                    key.includes('SLAS') ||
-                    key.includes('GOOGLE') ||
-                    key.includes('MAPS')
-            )
-        })
-    })
-
     // Google Places Autocomplete API route
     app.get('/api/places/autocomplete', async (req, res) => {
         try {
